@@ -7,7 +7,6 @@ import {videosData} from '../../data/youtube-videos-mock';
 import Player from "../../components/Player/Player";
 import SearchBar from "../../components/Player/SearchBar";
 
-
 function DisplayPage() {
   
   const [data , setData]=useState(null)
