@@ -19,14 +19,9 @@ import  {useDarkMode} from "../Theme/UseDarkMode";
 
 
 function App() {
-
-  //const [theme, setTheme] = useState('light');
+  
   const [theme] = useDarkMode();
   const themeMode = theme === 'light' ? lightTheme : darkTheme;
-  
-  /*const themeToggler = () => {
-    theme === 'light' ? setTheme('dark') : setTheme('light');
-  }*/
 
   useLayoutEffect(() => {
     const { body } = document;

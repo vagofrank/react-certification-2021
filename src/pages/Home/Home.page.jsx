@@ -26,7 +26,6 @@ function HomePage() {
               ← logout
             </Link>
             <span className="separator" />
-            {/*<Link to="/secret">show me something cool →</Link>*/}
             <Link to="/display">Show me something cool →</Link>
           </span>
         </>

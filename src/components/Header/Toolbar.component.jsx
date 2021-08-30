@@ -8,7 +8,6 @@ export const Header = styled.section`
   top: 4px;
 
   & a{ 
-    /*color: #000000;*/
     font-size: .5rem;
   }
 
@@ -39,7 +38,6 @@ export const Header = styled.section`
     text-decoration: none;
   }
 
-/* menu */
 
  & .menu {
     clear: both;
@@ -47,7 +45,7 @@ export const Header = styled.section`
     transition: max-height .2s ease-out;
   }
 
-/* menu icon */
+
 
   & .menu-icon {
     cursor: pointer;
@@ -59,7 +57,6 @@ export const Header = styled.section`
   }
 
   & .menu-icon .navicon {
-    /*background: #333;*/
     display: block;
     height: 2px;
     position: relative;
@@ -69,7 +66,6 @@ export const Header = styled.section`
 
   & .menu-icon .navicon:before,
     .menu-icon .navicon:after {
-      /*background: #333;*/
       content: '';
       display: block;
       height: 100%;
@@ -85,8 +81,6 @@ export const Header = styled.section`
   & .menu-icon .navicon:after {
     top: -5px;
   }
-
-/* menu btn */
 
   & .menu-btn {
     display: none;
