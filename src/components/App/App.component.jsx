@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, {useLayoutEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import AuthProvider from '../../providers/Auth';
@@ -6,12 +6,23 @@ import HomePage from '../../pages/Home';
 import LoginPage from '../../pages/Login';
 import NotFound from '../../pages/NotFound';
 import SecretPage from '../../pages/Secret';
+import DisplayPage from '../../pages/Display/Display.page';
 import Private from '../Private';
 import Fortune from '../Fortune';
 import Layout from '../Layout';
 import { random } from '../../utils/fns';
 
+import {ThemeProvider} from "styled-components";
+import { GlobalStyles } from "../Theme/GlobalStyles";
+import { lightTheme, darkTheme } from "../Theme/Theme";
+import  {useDarkMode} from "../Theme/UseDarkMode";
+
+
 function App() {
+  
+  const [theme] = useDarkMode();
+  const themeMode = theme === 'light' ? lightTheme : darkTheme;
+
   useLayoutEffect(() => {
     const { body } = document;
 
@@ -31,6 +42,12 @@ function App() {
   }, []);
 
   return (
+    <ThemeProvider theme={themeMode}>
+    <>
+    <GlobalStyles/>
+
+
+
     <BrowserRouter>
       <AuthProvider>
         <Layout>
@@ -44,6 +61,9 @@ function App() {
             <Private exact path="/secret">
               <SecretPage />
             </Private>
+            <Private exact path="/display">
+              <DisplayPage />
+            </Private>
             <Route path="*">
               <NotFound />
             </Route>
@@ -52,6 +72,10 @@ function App() {
         </Layout>
       </AuthProvider>
     </BrowserRouter>
+
+    </>  
+    </ThemeProvider>
+
   );
 }
 
