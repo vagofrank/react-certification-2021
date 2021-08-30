@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, {useLayoutEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import AuthProvider from '../../providers/Auth';
@@ -12,7 +12,22 @@ import Fortune from '../Fortune';
 import Layout from '../Layout';
 import { random } from '../../utils/fns';
 
+import {ThemeProvider} from "styled-components";
+import { GlobalStyles } from "../Theme/GlobalStyles";
+import { lightTheme, darkTheme } from "../Theme/Theme";
+import  {useDarkMode} from "../Theme/UseDarkMode";
+
+
 function App() {
+
+  //const [theme, setTheme] = useState('light');
+  const [theme] = useDarkMode();
+  const themeMode = theme === 'light' ? lightTheme : darkTheme;
+  
+  /*const themeToggler = () => {
+    theme === 'light' ? setTheme('dark') : setTheme('light');
+  }*/
+
   useLayoutEffect(() => {
     const { body } = document;
 
@@ -32,6 +47,12 @@ function App() {
   }, []);
 
   return (
+    <ThemeProvider theme={themeMode}>
+    <>
+    <GlobalStyles/>
+
+
+
     <BrowserRouter>
       <AuthProvider>
         <Layout>
@@ -56,6 +77,10 @@ function App() {
         </Layout>
       </AuthProvider>
     </BrowserRouter>
+
+    </>  
+    </ThemeProvider>
+
   );
 }
 

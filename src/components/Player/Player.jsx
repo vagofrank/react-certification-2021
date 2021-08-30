@@ -1,10 +1,29 @@
-import React from 'react';
-import SearchBar from './SearchBar';
-import youtube from './youtube';
+import React, {useState} from "react";
 import VideoList from './VideoList';
 import VideoDetail from './VideoDetail';
 
-class Player extends React.Component {
+function Player(props){
+
+    const [selectedVideo, setselectedVideo] = useState(null);
+
+    const handleVideoSelect = (video) => {
+        setselectedVideo(video)
+    }
+
+    return (
+        <div className="container playerViewer">
+            <div className="container">
+                <VideoDetail video={selectedVideo}/>
+            </div>
+            <div className="container playerList">
+                <VideoList handleVideoSelect={handleVideoSelect} videos={props.videos}/>
+            </div>
+        </div>
+    )
+
+}
+
+/*class Player extends React.Component {
     state = {
         videos: [],
         selectedVideo: null
@@ -40,6 +59,6 @@ class Player extends React.Component {
             </div>
         )
     }
-}
+}*/
 
 export default Player;

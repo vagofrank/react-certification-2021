@@ -27,11 +27,11 @@ function HomePage() {
             </Link>
             <span className="separator" />
             {/*<Link to="/secret">show me something cool →</Link>*/}
-            <Link to="/display">show me something cool →</Link>
+            <Link to="/display">Show me something cool →</Link>
           </span>
         </>
       ) : (
-        <Link to="/login">let me in →</Link>
+        <Link to="/login">Let me in →</Link>
       )}
     </section>
   );

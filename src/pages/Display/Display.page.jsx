@@ -1,97 +1,76 @@
-import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
-import {Header,Toggle, Search} from '../../components/Header/Toolbar.component';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faSearch} from '@fortawesome/fontawesome-free-solid'
-import {videosData} from '../../data/youtube-videos-mock';
+import React, { useState} from "react";
+import { Link,useHistory } from "react-router-dom";
+import {Header} from '../../components/Header/Toolbar.component';
 import Player from "../../components/Player/Player";
 import SearchBar from "../../components/Player/SearchBar";
+import youtube from '../../components/Player/youtube';
+
+import Toggle from "../../components/Theme/Toggler";
+import { lightTheme, darkTheme } from "../../components/Theme/Theme";
+import  {useDarkMode} from  "../../components/Theme/UseDarkMode";
+import {ThemeProvider} from "styled-components";
+import { GlobalStyles } from "../../components/Theme/GlobalStyles";
+import { useAuth } from '../../providers/Auth';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHome, faSignOutAlt} from '@fortawesome/fontawesome-free-solid'
 
 function DisplayPage() {
   
-  const [data , setData]=useState(null)
+  const [theme, themeToggler] = useDarkMode();
+  const themeMode = theme === 'light' ? lightTheme : darkTheme;
 
-  const getData=()=>{
-    fetch('./youtube-videos-mock.json'
-    ,{
-      headers : { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-       },
-       mode: 'no-cors',
-    }
-    )
+  const [videos, setVideos] = useState([]);
 
-      .then(function(response){
-        //console.log(response)
-        setData(response);
-        return response.json();
+  const handleSubmit = async (termFromSearchBar) => {
+      const response = await youtube.get('/search', {
+          params: {
+              q: termFromSearchBar
+          }
       })
+      setVideos(response.data.items)
+  };
 
-      .then(function(myJson) {
-        //console.log(myJson);
-        
-      });
+  const { logout } = useAuth();
+  const history = useHistory();
+
+  function deAuthenticate(event) {
+    event.preventDefault();
+    logout();
+    history.push('/');
   }
 
-  useEffect(()=>{
-    getData()
-  },[])
-
-  const [searchText, setSearchText] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  
-  const handleChange = (e) => {
-    setSearchText(e.target.value);
-  };
-  
-  /*useEffect(() => {
-    const results = data.filter((video) =>
-    console.log(video)
-    //video.items.snippet.description.toLowerCase().includes(searchText)
-    );
-    setSearchResults(results);
-  }, [searchText]);*/
-  
-
   return (
+    <ThemeProvider theme={themeMode}>
+    <>
+    <GlobalStyles/>
       <Header>
-        <a href="www.google.com" className="logo">Dark Mode</a>
-        {/*
-        <Search>
-          <input id="txtSearchId" placeholder="Search…" type="text" aria-label="search" value={searchText} onChange={handleChange}></input>
-          <i className="logoSearch"><FontAwesomeIcon icon={faSearch} /></i>
-        </Search>
-        */}
-        <Toggle>
-          <label className="switch">
-            <input type="checkbox"/>
-            <span className="slider round"></span>
-            </label>
-        </Toggle>
-        <input className="menu-btn" type="checkbox" id="menu-btn" />
-        <label className="menu-icon" for="menu-btn"><span className="navicon"></span></label>
-          <ul className="menu">
-            <li><a href="#work">Home</a></li>
-          </ul>
+        <div className="row">
+            <div className="col-2 col-md-4" style={{zIndex: 50000}}>
+                <input className="menu-btn" type="checkbox" id="menu-btn" />
+                <label className="menu-icon" htmlFor="menu-btn"><span className="navicon"></span></label>
+                <ul id="menu" className="menu" style={{zIndex: 50000}}>
+                    <li><Link to="/display" className="linkText"><i><FontAwesomeIcon icon={faHome}/></i><span className="displayed">Home</span></Link></li>
+                    <li><Link to="/" className="linkText" onClick={deAuthenticate}><i><FontAwesomeIcon icon={faSignOutAlt}/></i><span className="displayed">Logout</span></Link></li>
+                </ul>
+          </div>
 
-        <div className="cards">
-        {
-          /** Filter videos data and map them to return an array of videos.*/
-          /*searchResults.map((data) => (
-            <h1>data.description</h1>
-          ))*/
-          /*data.items ? data.items.map(
-            function(datax){
-                    return (<div className="card"> 
-                    <h4> {datax.kind}</h4>
-                </div>)
-            }
-          ):""*/
-        }
-      </div>
-      <Player></Player>    
+          <div className="col-6 col-md-6">
+            <SearchBar handleFormSubmit={handleSubmit}/>
+          </div>
+          
+          <div className="col-4 col-md-2"><Toggle theme={theme} toggleTheme={themeToggler} />
+          </div>
+        
+        </div>
       </Header>
+
+      <Player videos={videos}></Player>    
+
+
+      </>
+      </ThemeProvider>
+
   );
 }
 

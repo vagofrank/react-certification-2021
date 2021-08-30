@@ -1,94 +1,14 @@
 import styled from 'styled-components';
 
-export const Toggle = styled.section`
-  display: inline;
-  float: rigth;
-  
-  & .switch{ 
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-  }
-
-  & .switch input { 
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-
-  & .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      -webkit-transition: .4s;
-      transition: .4s;
-  }
-
-& .slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-& input:checked + .slider {
-  background-color: #2196F3;
-}
-
-& input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-& input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-
-& .slider.round {
-  border-radius: 34px;
-}
-
-& .slider.round:before {
-  border-radius: 50%;
-}`;
-
-export const Search = styled.section`
-  display: inline;
-  
-  & .logoSearch {
-    position: relative;
-    z-index: 1;
-    left: -25px;
-    top: 1px;
-    color: #7B7B7B;
-    cursor:pointer;
-    width: 0;
-  }`;
-
-/* header */
-
 export const Header = styled.section`
-  background-color: #fff;
   box-shadow: 1px 1px 4px 0 rgba(0,0,0,.1);
   position: fixed;
   width: 100%;
   z-index: 3;
-  top: 0;
+  top: 4px;
 
   & a{ 
-    color: #000000;
+    /*color: #000000;*/
     font-size: .5rem;
   }
 
@@ -139,7 +59,7 @@ export const Header = styled.section`
   }
 
   & .menu-icon .navicon {
-    background: #333;
+    /*background: #333;*/
     display: block;
     height: 2px;
     position: relative;
@@ -149,7 +69,7 @@ export const Header = styled.section`
 
   & .menu-icon .navicon:before,
     .menu-icon .navicon:after {
-      background: #333;
+      /*background: #333;*/
       content: '';
       display: block;
       height: 100%;

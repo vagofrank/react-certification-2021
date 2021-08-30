@@ -10,13 +10,13 @@ function LoginPage() {
 
   function authenticate(event) {
     event.preventDefault();
-    login();
-    {/*history.push('/secret');*/}
+    login();        
     history.push('/display');
   }
 
   return (
-    <section className="login">
+    <div className="container">
+      <section className="login">
       <h1>Welcome back!</h1>
       <form onSubmit={authenticate} className="login-form">
         <div className="form-group">
@@ -34,6 +34,7 @@ function LoginPage() {
         <button type="submit">login</button>
       </form>
     </section>
+    </div>
   );
 }
 
